@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.dao.mapper.BookMapper">
+
+    <sql id="bookBaseColumnSql">
+        bookid,
+        bookname,
+        bookprice,
+        bookcount,
+        bookpic
+    </sql>
+
+    <sql id="bookBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.bookid)">
+                    bookid = #{map.bookid}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.bookname)">
+                    AND bookname = #{map.bookname}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.bookprice)">
+                    AND bookprice = #{map.bookprice}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.bookcount)">
+                    AND bookcount = #{map.bookcount}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.bookpic)">
+                    AND bookpic = #{map.bookpic}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertBook" parameterType="com.hzit.dao.entity.Book">
+        INSERT INTO books(
+        <include refid="bookBaseColumnSql"/>
+        )VALUES(
+            #{bookid},
+            #{bookname},
+            #{bookprice},
+            #{bookcount},
+            #{bookpic}
+        )
+    </insert>
+
+    
+    <delete id="deleteBookByBookid" parameterType="Integer">
+        DELETE FROM books WHERE bookid = #{bookid}
+    </delete>
+
+    <update id="updateBook" parameterType="com.hzit.dao.entity.Book">
+        UPDATE books
+        <set>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(bookname)">
+                bookname = #{bookname} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(bookprice)">
+                bookprice = #{bookprice} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(bookcount)">
+                bookcount = #{bookcount} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(bookpic)">
+                bookpic = #{bookpic} ,
+            </if>
+        </set>
+        WHERE bookid = #{bookid}
+    </update>
+
+    <select id="searchBookByParams" parameterType="map" resultMap="bookMap">
+        SELECT
+        <include refid="bookBaseColumnSql"/>
+        FROM books
+        <include refid="bookBaseWhereSql"/>
+    </select>
+
+    <resultMap type="com.hzit.dao.entity.Book" id="bookMap">
+        <id column="bookid" property="bookid"/>
+        <result column="bookname" property="bookname"/>
+        <result column="bookprice" property="bookprice"/>
+        <result column="bookcount" property="bookcount"/>
+        <result column="bookpic" property="bookpic"/>
+    </resultMap>
+
+</mapper>

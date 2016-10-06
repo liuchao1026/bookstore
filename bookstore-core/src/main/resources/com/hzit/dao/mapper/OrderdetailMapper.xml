@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.dao.mapper.OrderdetailMapper">
+
+    <sql id="orderdetailBaseColumnSql">
+        id,
+        orderid,
+        bookid,
+        count,
+        tradeprice
+    </sql>
+
+    <sql id="orderdetailBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.id)">
+                    id = #{map.id}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.orderid)">
+                    AND orderid = #{map.orderid}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.bookid)">
+                    AND bookid = #{map.bookid}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.count)">
+                    AND count = #{map.count}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.tradeprice)">
+                    AND tradeprice = #{map.tradeprice}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertOrderdetail" parameterType="com.hzit.dao.entity.Orderdetail">
+        INSERT INTO orderdetail(
+        <include refid="orderdetailBaseColumnSql"/>
+        )VALUES(
+            #{id},
+            #{orderid},
+            #{bookid},
+            #{count},
+            #{tradeprice}
+        )
+    </insert>
+
+    
+    <delete id="deleteOrderdetailById" parameterType="Integer">
+        DELETE FROM orderdetail WHERE id = #{id}
+    </delete>
+
+    <update id="updateOrderdetail" parameterType="com.hzit.dao.entity.Orderdetail">
+        UPDATE orderdetail
+        <set>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderid)">
+                orderid = #{orderid} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(bookid)">
+                bookid = #{bookid} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(count)">
+                count = #{count} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(tradeprice)">
+                tradeprice = #{tradeprice} ,
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="searchOrderdetailByParams" parameterType="map" resultMap="orderdetailMap">
+        SELECT
+        <include refid="orderdetailBaseColumnSql"/>
+        FROM orderdetail
+        <include refid="orderdetailBaseWhereSql"/>
+    </select>
+
+    <resultMap type="com.hzit.dao.entity.Orderdetail" id="orderdetailMap">
+        <id column="id" property="id"/>
+        <result column="orderid" property="orderid"/>
+        <result column="bookid" property="bookid"/>
+        <result column="count" property="count"/>
+        <result column="tradeprice" property="tradeprice"/>
+    </resultMap>
+
+</mapper>
