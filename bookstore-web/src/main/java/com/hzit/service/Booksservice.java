@@ -1,5 +1,6 @@
 package com.hzit.service;
 
+import com.fc.platform.commons.page.Page;
 import com.hzit.dao.entity.Book;
 import com.hzit.dao.mapper.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,5 +14,5 @@ import java.util.List;
 
 public interface Booksservice {
 
-    public List<Book> selectbypage(String page);
+    public Page<Book> selectbypage(int page,int currline);
 }
