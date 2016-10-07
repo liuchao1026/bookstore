@@ -14,5 +14,6 @@ import java.util.List;
 
 public interface Booksservice {
 
-    public Page<Book> selectbypage(int page,int currline);
+    public Page<Book> selectByPage(int page,int currline);
+    public Book selectById(int bookid);
 }
