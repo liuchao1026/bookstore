@@ -32,12 +32,5 @@
             <version>3.1</version>
         </dependency>
     </dependencies>
-    <!--到指定的ip上去下载maven包-->
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>nexus</name>
-            <url>http://192.168.0.200:8081/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
+
 </project>

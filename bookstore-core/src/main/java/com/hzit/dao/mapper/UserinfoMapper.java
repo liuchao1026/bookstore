@@ -10,11 +10,11 @@ import com.fc.platform.commons.page.Pageable;
 
 public interface UserinfoMapper {
 
-	void insertUserinfo(Userinfo userinfo);
+	boolean insertUserinfo(Userinfo userinfo);
 
-	void deleteUserinfoByUserid(Integer userid);
+	int deleteUserinfoByUserid(Integer userid);
 
-	void updateUserinfo(Userinfo userinfo);
+	int updateUserinfo(Userinfo userinfo);
 
 	Page<Userinfo> searchUserinfoByParams(@Param("map") Map<String, String> map, Pageable pageable);
 
