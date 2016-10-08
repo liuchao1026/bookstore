@@ -1,10 +1,12 @@
 package com.hzit.dao.entity;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author liuchao
  */
-public class Userinfo {
+public class Userinfo implements Serializable {
 	/**
 	 *  用户ID
 	 */

@@ -12,11 +12,5 @@ import java.util.Map;
 public interface Userinfoservice {
     boolean add(Userinfo userinfo);
 
-    int delet(Integer userid);
-
-    int update(Userinfo userinfo);
-
-    List<Userinfo> findbyid(int userid);
-
-    List<Userinfo> find(@RequestParam("username")String username,@RequestParam("userpwd")String userpwd);
+    Userinfo findone(String username,String userpwd);
 }

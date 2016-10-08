@@ -68,11 +68,18 @@
         <include refid="userinfoBaseWhereSql"/>
     </select>
 
+
+
     <resultMap type="com.hzit.dao.entity.Userinfo" id="userinfoMap">
         <id column="userid" property="userid"/>
         <result column="username" property="username"/>
         <result column="userpwd" property="userpwd"/>
         <result column="useremail" property="useremail"/>
     </resultMap>
+
+    <select id="findone" resultType="com.hzit.dao.entity.Userinfo">
+        SELECT * FROM userinfo WHERE username=#{username} AND userpwd=#{userpwd} limit 1
+    </select>
+
 
 </mapper>

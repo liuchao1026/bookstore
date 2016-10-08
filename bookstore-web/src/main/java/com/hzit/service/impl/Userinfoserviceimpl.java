@@ -29,38 +29,14 @@ public class Userinfoserviceimpl implements Userinfoservice {
         }
     }
 
-    @Override
-    public int delet(Integer userid) {
-        try {
-            int num = userinfoMapper.deleteUserinfoByUserid(userid);
-            return num;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
 
-        @Override
-        public int update (Userinfo userinfo){
-            return 0;
-        }
-
-        @Override
-        public List<Userinfo> findbyid (int userid){
-            Map m=new HashMap();
-            m.put("userid",userid);
-            List<Userinfo> list=userinfoMapper.searchUserinfoByParams(m);
-            return list;
-        }
 
     @Override
-    public List<Userinfo> find(@RequestParam("username") String username, @RequestParam("userpwd") String userpwd) {
-      Map m=new HashMap();
-        m.put("username",username);
-        m.put("userpwd",userpwd);
-        List<Userinfo> list=userinfoMapper.searchUserinfoByParams(m);
-        return list;
+    public Userinfo findone( String username,  String userpwd) {
+        Userinfo userinfo=userinfoMapper.findone(username,userpwd);
+        return userinfo;
     }
+
 
 
 }

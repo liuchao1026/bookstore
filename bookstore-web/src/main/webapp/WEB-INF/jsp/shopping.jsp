@@ -44,7 +44,7 @@
 </div>
 <div id="content" class="wrap">
   <div class="list bookList">
-    <form method="post" name="shoping" action="shopping-success.html">
+    <form method="post" name="shoping" action="../addorder">
       <table>
         <tr class="title">
           <th class="view">图片预览</th>
