@@ -20,7 +20,7 @@
   <div id="navbar">
     <div class="userMenu">
       <ul>
-        <li class="current"><a href="index.html">User首页</a></li>
+        <li class="current"><a href="selectbypage">User首页</a></li>
         <li><a href="orderlist.html">我的订单</a></li>
         <li><a href="shopping.html">购物车</a></li>
         <li><a href="#">注销</a></li>
@@ -33,7 +33,7 @@
 </div>
 <div id="content" class="wrap">
   <div class="list bookList">
-    <form method="post" name="shoping" action="shopping.html">
+    <form method="get" name="shopping" action="shopping">
       <table>
         <tr class="title">
           <th class="checker"></th>
@@ -51,7 +51,7 @@
         </tr>--%>
         <c:forEach items="${pages.content}" var="b">
           <tr class="odd">
-            <td><input type="checkbox" name="bookId" value="${b.bookid}" /></td>
+            <td><input type="checkbox" name="bookid" value="${b.bookid}" /></td>
             <td class="title">${b.bookname}</td>
             <td>￥${b.bookprice}</td>
             <td>${b.bookcount}</td>
