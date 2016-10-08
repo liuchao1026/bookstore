@@ -29,12 +29,12 @@ public class BooksController {
     * 通过页面查询book
     * */
     @RequestMapping("/selectbypage")
-    public String selectByPage(@RequestParam (name = "page",defaultValue ="1")int page,@RequestParam(name = "totalpage" ,defaultValue = "2") int totalpage,ModelMap modelMap){
+    public String selectByPage(@RequestParam (name = "page",defaultValue ="1")int page,@RequestParam(name = "totalpages" ,defaultValue = "1") int totalpages,ModelMap modelMap){
         if (page <= 1) {
             page = 1;
         }
-        if (page >= totalpage) {
-            page = totalpage;
+        if (page >= totalpages) {
+            page = totalpages;
         }
 
         Page<Book> pages=booksservice.selectByPage(page, 5);
@@ -97,4 +97,14 @@ public class BooksController {
     public String jumpToshopping(){
         return "shopping";
     }
-}
+    /*
+    *
+    * 删除购物车里面的数据
+    * */
+    @RequestMapping("/deletebookvo")
+    public String deleteBookVo(@RequestParam("bookid") int bookid,HttpSession session){
+            Map bookvomap=(Map)session.getAttribute("bookvomap");
+                bookvomap.remove(bookid);
+            return "shopping";
+    }
+ }

@@ -22,7 +22,7 @@
       <ul>
         <li class="current"><a href="selectbypage">User首页</a></li>
         <li><a href="orderlist.html">我的订单</a></li>
-        <li><a href="shopping.html">购物车</a></li>
+        <li><a href="toshopping">购物车</a></li>
         <li><a href="#">注销</a></li>
       </ul>
     </div>
@@ -68,7 +68,7 @@
         <a href="selectbypage?page=1">首页</a>
         <%--<span class="current">1</span>--%>
         <c:forEach begin="1" end="${pages.totalPages}" var="i">
-          <a href="selectbypage?page=${i}">${i}</a>
+          <a href="selectbypage?page=${i}&totalpages=${pages.totalPages}">${i}</a>
         </c:forEach>
 
 
