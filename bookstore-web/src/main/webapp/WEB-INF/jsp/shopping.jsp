@@ -32,9 +32,9 @@
     <div class="userMenu">
       <ul>
         <li><a href="selectbypage">User首页</a></li>
-        <li><a href="orderlist.html">我的订单</a></li>
+        <li><a href="../orderpage">我的订单</a></li>
         <li class="current"><a href="toshopping">购物车</a></li>
-        <li><a href="#">注销</a></li>
+        <li><a href="../zhuxiao">注销</a></li>
       </ul>
     </div>
     <form method="get" name="search" action="">
@@ -63,7 +63,7 @@
             <td>￥<span>${b.value.bookprice*b.value.count}</span></td>
             <td><a href="deletebookvo?bookid=${b.value.bookid}">删除</a></td>
           </tr>
-<c:set var="sum" value="${sum+b.value.bookprice*b.value.count}"></c:set>
+        <c:set var="sum" value="${sum+b.value.bookprice*b.value.count}"></c:set>
         </c:forEach>
 
 

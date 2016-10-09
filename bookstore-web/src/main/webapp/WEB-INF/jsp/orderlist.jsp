@@ -19,10 +19,10 @@
   <div id="navbar">
     <div class="userMenu">
       <ul>
-        <li><a href="index.html">User首页</a></li>
-        <li class="current"><a href="orderlist.html">我的订单</a></li>
-        <li><a href="shopping.html">购物车</a></li>
-        <li><a href="#">注销</a></li>
+        <li><a href="selectbypage">User首页</a></li>
+        <li><a href="../orderpage">我的订单</a></li>
+        <li class="current"><a href="toshopping">购物车</a></li>
+        <li><a href="../zhuxiao">注销</a></li>
       </ul>
     </div>
     <form method="get" name="search" action="">
@@ -42,30 +42,32 @@
         <th class="status">订单状态</th>
       </tr>
 
-
+<c:forEach items="${orderlistvo}"  varStatus="v">
         <tr>
-          <td>10010</td>
-          <td class="thumb"><img src="images/book/book_01.gif" /></td>
-          <td>王五</td>
-          <td>￥18.00</td>
-          <td>2012-12-21 12:00:00</td>
+          <td><input type="hidden" value="${orderlistvo.orderid}" >${v.count}</td>
+          <td class="thumb"><img src="images/book/book_01.gif" />${orderlistvo.list.bookpic}</td>
+          <td>${userinfo.username}</td>
+          <td>${orderlistvo.list.bookprice}</td>
+          <td>${orderlistvo.ordertime}</td>
           <td>已完成</td>
         </tr>
 
-
+</c:forEach>
 
 
     </table>
     <div class="page-spliter">
-      <a href="#">&lt;</a>
-      <a href="#">首页</a>
-      <span class="current">1</span>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
+      <a href="selectbypage?page=${currpage-1}&totalpages=${pages.totalPages}">&lt;</a>
+      <a href="selectbypage?page=1">首页</a>
+      <%--<span class="current">1</span>--%>
+      <c:forEach begin="1" end="${pages.totalPages}" var="i">
+        <a href="selectbypage?page=${i}&totalpages=${pages.totalPages}">${i}</a>
+      </c:forEach>
+
+
       <span>...</span>
-      <a href="#">尾页</a>
-      <a href="#">&gt;</a>
+      <a href="selectbypage?page=${pages.totalPages}">尾页</a>
+      <a href="selectbypage?page=${currpage+1}&totalpages=${pages.totalPages}">&gt;</a>
     </div>
     <div class="button"><input class="input-gray" type="submit" name="submit" value="查看一个月前的订单" /><input class="input-gray" type="submit" name="submit" value="查看一个月前的订单" /></div>
   </div>

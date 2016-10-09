@@ -1,5 +1,7 @@
 package com.hzit.service.impl;
 
+import com.fc.platform.commons.page.Page;
+import com.fc.platform.commons.page.PageRequest;
 import com.hzit.dao.entity.Book;
 import com.hzit.dao.entity.Orderdetail;
 import com.hzit.dao.entity.Orderlist;
@@ -8,8 +10,10 @@ import com.hzit.dao.mapper.OrderlistMapper;
 import com.hzit.dao.vo.BookVo;
 import com.hzit.dao.vo.OrderlistVo;
 import com.hzit.service.Orderlistservice;
+import com.sun.org.apache.bcel.internal.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +31,7 @@ public class Orderlistserviceimpl implements Orderlistservice {
 
     //添加订单的时候要先添加订单再添加订单详情。
     @Override
+    @Transactional  //添加事物支持。如果出现异常该方法的所有操作回滚
     public boolean addorder(OrderlistVo orderlistVo) {
         String orderId= UUID.randomUUID().toString();
         Orderlist orderlist=new Orderlist();
@@ -54,5 +59,18 @@ public class Orderlistserviceimpl implements Orderlistservice {
 
         }
         return true;
+    }
+
+    @Override
+    public Page<Orderlist> findbypage(int page, int currline) {
+        PageRequest pg=new PageRequest((page-1),currline);
+         Page<Orderlist> p=orderlistMapper.searchOrderlistByParams(null,pg);
+        return p;
+    }
+
+    @Override
+    public OrderlistVo findbyid(int userid) {
+        OrderlistVo ordervo=orderlistMapper.findbyid(userid);
+        return ordervo;
     }
 }
