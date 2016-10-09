@@ -22,10 +22,10 @@
   <div id="navbar">
     <div class="userMenu">
       <ul>
-        <li><a href="selectbypage">User首页</a></li>
-        <li><a href="orderlist.html">我的订单</a></li>
+        <li><a href="selectbypage">${userinfo.username}首页</a></li>
+        <li><a href="../orderpage">我的订单</a></li>
         <li class="current"><a href="toshopping">购物车</a></li>
-        <li><a href="#">注销</a></li>
+        <li><a href="../zhuxiao">注销</a></li>
       </ul>
     </div>
     <form method="get" name="search" action="">
@@ -35,18 +35,18 @@
 </div>
 <div id="content" class="wrap">
   <div class="list bookList">
-    <form method="post" name="shoping" action="shopping-success.html">
+    <form method="post" name="shoping" action="../addorder">
       <table>
         <tr class="title">
           <th class="view">图片预览</th>
           <th>书名</th>
           <th class="nums">数量</th>
-          <th class="price">单价</th>
-          <th>小计</th>
+          <th class="price">价格</th>
+
           <th>删除</th>
         </tr>
 
-
+<c:set var="sum" value="0"></c:set>
         <c:forEach items="${bookvomap}" var="b">
           <tr>
             <td class="thumb"><img src="${b.value.bookpic}" height="150" /></td>
