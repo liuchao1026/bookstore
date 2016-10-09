@@ -109,7 +109,7 @@
   /*
   * 第一次加载的时候算出载入总价
   * */
- function chuci(){
+   function chuci(){
    var sum=0;
    var ints=$(".kk")
    for(var i=0;i<ints.length;i++){
