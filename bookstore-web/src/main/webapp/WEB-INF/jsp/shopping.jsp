@@ -41,7 +41,8 @@
           <th class="view">图片预览</th>
           <th>书名</th>
           <th class="nums">数量</th>
-          <th class="price">价格</th>
+          <th class="price">单价</th>
+          <th>小计</th>
 
           <th>删除</th>
         </tr>
