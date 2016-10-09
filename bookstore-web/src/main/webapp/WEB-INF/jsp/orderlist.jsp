@@ -19,7 +19,7 @@
   <div id="navbar">
     <div class="userMenu">
       <ul>
-        <li><a href="selectbypage">User首页</a></li>
+        <li><a href="selectbypage">${userinfo.username}首页</a></li>
         <li><a href="../orderpage">我的订单</a></li>
         <li class="current"><a href="toshopping">购物车</a></li>
         <li><a href="../zhuxiao">注销</a></li>
