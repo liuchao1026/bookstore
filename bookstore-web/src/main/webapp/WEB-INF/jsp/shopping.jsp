@@ -14,16 +14,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title></title>
   <link type="text/css" rel="stylesheet" href="../css/style.css" />
-  <script src="../../js/jquery-1.7.2.min.js"></script>
-  <%--页面初始化时计算总价--%>
-  <script>
-    $(function(){
 
-
-
-    })
-
-  </script>
 </head>
 <body>
 <div id="header" class="wrap">
@@ -59,18 +50,20 @@
           <tr>
             <td class="thumb"><img src="${b.value.bookpic}" height="150" /></td>
             <td class="title">${b.value.bookname}</td>
-            <td><input class="input-text" type="text" name="nums" value="${b.value.count}" /></td>
-            <td>￥<span>${b.value.bookprice*b.value.count}</span></td>
-            <td><a href="deletebookvo?bookid=${b.value.bookid}">删除</a></td>
+            <td><input class="input-text" type="text" name="nums" bookid="${b.value.bookid}" price="${b.value.bookprice}"  value="${b.value.count}" /></td>
+            <td>￥<span>${b.value.bookprice}</span></td>
+            <td>￥<span class="kk">${b.value.bookprice*b.value.count}</span></td>
+
+            <td><a class="delete" bookid="${b.value.bookid}" href="javascript:void(0)">删除</a></td>
           </tr>
-        <c:set var="sum" value="${sum+b.value.bookprice*b.value.count}"></c:set>
+
         </c:forEach>
 
 
 
       </table>
       <div class="button">
-        <h4>总价：￥<span id="total">${sum}</span>元</h4>
+        <h4>总价：￥<span id="total">${totalprice}</span>元</h4>
         <input class="input-chart" type="submit" name="submit" value="" />
       </div>
     </form>
@@ -80,5 +73,50 @@
   合众艾特网上书城 &copy; 版权所有
 
 </div>
+
+<script src="../../js/jquery-1.7.2.min.js"></script>
+页面初始化时计算总价
+<script>
+  $(function(){
+    chuci()
+
+    $(".input-text").blur(function(){
+//        先跟新页面上的小计
+      var count=$(this).val()
+      var price=$(this).attr("price")
+
+      $(this).parent().next().next().children("span").html(count*price)
+
+//      在跟新页面上的总价
+      $.post("updateshopping",{"bookid":$(this).attr("bookid"),"count":count},function(data){
+
+        $("#total").html(data)
+      })
+
+    })
+  })
+
+//  实现删除操作
+  $(".delete").click(function(){
+    $(this).parents("tr").slideUp(1000)
+    $.post("deletebookvo",{"bookid":$(this).attr("bookid")},function(data){
+      $("#total").html(data)
+    })
+  })
+
+
+  /*
+  * 第一次加载的时候算出载入总价
+  * */
+   function chuci(){
+   var sum=0;
+   var ints=$(".kk")
+   for(var i=0;i<ints.length;i++){
+     var int=ints[i].innerText
+     sum+=parseInt(int)
+   }
+   $("#total").html(sum)
+ }
+</script>
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +62,16 @@ public class BooksController {
             bookvomap=new HashMap();
             session.setAttribute("bookvomap",bookvomap);
         }
+        /*String totalprice=(String)session.getAttribute("totalprice");
+        if (totalprice==null){
+            totalprice="0";
+            session.setAttribute("totalprice",totalprice);
+        }
+        int sum=Integer.parseInt(totalprice);*/
+
+
+//        int sum=(Integer)session.getAttribute("totalprice");
+
         for (int i=1;i<=ints.length;i++){
             Book book=booksservice.selectById(Integer.parseInt(ints[i - 1]));
             BookVo bookVo=new BookVo();
@@ -76,11 +87,17 @@ public class BooksController {
             else
                 bookVo.setCount(1);
 
+            //总价算出来
+//            sum+=bookVo.getCount()*Integer.parseInt(bookVo.getBookprice());
+
             bookvomap.put(book.getBookid(),bookVo);
 
         }
 
         session.setAttribute("bookvomap",bookvomap);
+//        session.setAttribute("totalprice",sum);
+
+//        modelMap.put("totalprice",sum);
 
         return "redirect:/book/toshopping";
 
@@ -99,12 +116,45 @@ public class BooksController {
     }
     /*
     *
-    * 删除购物车里面的数据
+    * 跟新购物车里面的数据，且返回总价
+    * */
+    @RequestMapping("/updateshopping")
+    @ResponseBody
+    public Object updatebookvo(@RequestParam("bookid") int bookid,@RequestParam("count") int count,HttpSession session){
+        System.out.println("正在修改"+bookid+"号");
+        Map map=(Map)session.getAttribute("bookvomap");
+        BookVo bookVo=(BookVo)map.get(bookid);
+        bookVo.setCount(count);
+        //计算图书总价
+        int sum=0;
+        Collection<BookVo> collection=map.values();
+        for (BookVo b:collection){
+            sum+=b.getCount()*Integer.parseInt(b.getBookprice());
+        }
+
+        return sum;
+
+    }
+    /*
+    *
+    * 删除购物车里面的数据,同样返回一个总价
     * */
     @RequestMapping("/deletebookvo")
-    public String deleteBookVo(@RequestParam("bookid") int bookid,HttpSession session){
+    @ResponseBody
+    public Object deleteBookVo(@RequestParam("bookid") int bookid,HttpSession session){
+        System.out.println("正在删除几号"+bookid);
             Map bookvomap=(Map)session.getAttribute("bookvomap");
                 bookvomap.remove(bookid);
-            return "shopping";
+        //计算图书总价
+        int sum=0;
+        Collection<BookVo> collection=bookvomap.values();
+        for (BookVo b:collection){
+            sum+=b.getCount()*Integer.parseInt(b.getBookprice());
+        }
+
+        return sum;
+
     }
+
+
  }
