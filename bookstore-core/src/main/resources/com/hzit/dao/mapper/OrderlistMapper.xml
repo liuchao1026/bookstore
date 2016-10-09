@@ -84,4 +84,12 @@
         <result column="orderprice" property="orderprice"/>
     </resultMap>
 
+   <select id="findbyid"  resultType="com.hzit.dao.vo.OrderlistVo">
+        SELECT * FROM orderlist JOIN
+    (SELECT orderdetail.orderid,books.bookpic FROM  books JOIN orderdetail
+   ON orderdetail.bookid=books.bookid) AS a
+   ON orderlist.orderid=a.orderid
+   WHERE orderlist.userid={#userid}
+    </select>
+
 </mapper>

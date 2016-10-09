@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.hzit.dao.entity.Userinfo;
 import com.fc.platform.commons.page.Page;
 import com.fc.platform.commons.page.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserinfoMapper {
 
@@ -20,4 +21,5 @@ public interface UserinfoMapper {
 
 	List<Userinfo> searchUserinfoByParams(@Param("map") Map<String, String> map);
 
+	Userinfo findone(@Param("username")String username,@Param("userpwd")String userpwd);
 } 
