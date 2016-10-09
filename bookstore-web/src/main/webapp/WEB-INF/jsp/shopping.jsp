@@ -42,6 +42,7 @@
           <th>书名</th>
           <th class="nums">数量</th>
           <th class="price">价格</th>
+
           <th>删除</th>
         </tr>
 
