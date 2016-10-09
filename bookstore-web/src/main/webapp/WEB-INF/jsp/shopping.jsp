@@ -81,7 +81,7 @@
   $(function(){
     chuci()
 
-    $(".input-text").blur(function(){
+      $(".input-text").blur(function(){
 //        先跟新页面上的小计
       var count=$(this).val()
       var price=$(this).attr("price")
